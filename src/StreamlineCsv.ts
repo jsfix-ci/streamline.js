@@ -1,5 +1,5 @@
 import { CsvError } from 'csv-parse'
-import csvParse from 'csv-parse/lib/sync'
+import csvParse from 'csv-parse/sync'
 
 import { Streamline, CsvParsingError } from './'
 
@@ -15,7 +15,7 @@ export abstract class StreamlineCsv extends Streamline {
 
   async parseLine(line: string): Promise<Array<unknown>> {
     try {
-      const [item] = csvParse(line, this.parsingOptions)
+      const [item] = csvParse.parse(line, this.parsingOptions)
 
       if (!item) {
         throw new CsvParsingError(`Failed to parse line: ${line}`)
